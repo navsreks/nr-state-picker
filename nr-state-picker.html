@@ -1,0 +1,116 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+
+
+<dom-module id="nr-state-picker">
+    <style>
+      :host {
+        display: block;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        margin: 8px;
+      }
+
+      form {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+      }
+
+
+      paper-dropdown-menu{
+        box-sizing: border-box;
+        width: 300px;
+      }
+
+      .dropdown-content{
+        box-sizing: border-box;
+        width: 200px;
+      }
+
+      paper-listbox{
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      paper-item{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
+
+    </style>
+
+  <template>
+<paper-dropdown-menu label= "state *">
+<paper-listbox class="dropdown-content">
+  <paper-item> Alabama </paper-item>
+  <paper-item> Alaska </paper-item>
+  <paper-item> Arizona </paper-item>
+  <paper-item> Arkansas </paper-item>
+  <paper-item> California </paper-item>
+  <paper-item> Colorado </paper-item>
+  <paper-item> Connecticut </paper-item>
+  <paper-item> Delaware </paper-item>
+  <paper-item> District of Columbia </paper-item>
+  <paper-item> Florida </paper-item>
+  <paper-item> Georgia </paper-item>
+  <paper-item> Hawaii </paper-item>
+  <paper-item> Idaho </paper-item>
+  <paper-item> Illinois </paper-item>
+  <paper-item> Indiana </paper-item>
+  <paper-item> Iowa </paper-item>
+  <paper-item> Kansas </paper-item>
+  <paper-item> Kentucky </paper-item>
+  <paper-item> Louisiana </paper-item>
+  <paper-item> Maine </paper-item>
+  <paper-item> Maryland </paper-item>
+  <paper-item> Massachusetts </paper-item>
+  <paper-item> Michigan </paper-item>
+  <paper-item> Minnesota </paper-item>
+  <paper-item>  Mississippi </paper-item>
+  <paper-item> Missouri </paper-item>
+  <paper-item> Montana </paper-item>
+  <paper-item> Nebraska </paper-item>
+  <paper-item> Nevada </paper-item>
+  <paper-item> New Hampshire </paper-item>
+  <paper-item> New Jersey </paper-item>
+  <paper-item> New Mexico </paper-item>
+  <paper-item> New York </paper-item>
+  <paper-item> North Carolina </paper-item>
+  <paper-item> North Dakota </paper-item>
+  <paper-item> Ohio </paper-item>
+  <paper-item> Oklahoma </paper-item>
+  <paper-item> Oregon </paper-item>
+  <paper-item> Pennsylvania </paper-item>
+  <paper-item> Rhode Island </paper-item>
+  <paper-item> South Carolina </paper-item>
+  <paper-item> South Dakota </paper-item>
+  <paper-item> Tennessee </paper-item>
+  <paper-item> Texas </paper-item>
+  <paper-item> Utah </paper-item>
+  <paper-item> Vermont </paper-item>
+  <paper-item> Virginia </paper-item>
+  <paper-item> Washington </paper-item>
+  <paper-item> West Virginia </paper-item>
+  <paper-item> Wisconsin </paper-item>
+  <paper-item> Wyoming </paper-item>
+</paper-dropdown-menu>
+</template>
+</dom-module>
+
+<script>
+    'use strict';
+
+    Polymer({
+      is: 'nr-state-picker',
+    });
+  </script>
