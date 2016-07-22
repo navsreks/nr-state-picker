@@ -1,116 +1,258 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
-<link rel="import" href="../bower_components/iron-form/iron-form.html">
-
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
 
 
 
 <dom-module id="nr-state-picker">
     <style>
-      :host {
-        display: block;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        margin: 8px;
-      }
+        :host {
+            display: block;
+        }
 
-      form {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
-      }
+        paper-dropdown-menu {
+            box-sizing: border-box;
+            width: 300px;
+        }
 
+        .dropdown-content {
+            box-sizing: border-box;
+            width: 200px;
+        }
 
-      paper-dropdown-menu{
-        box-sizing: border-box;
-        width: 300px;
-      }
+        paper-listbox {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
 
-      .dropdown-content{
-        box-sizing: border-box;
-        width: 200px;
-      }
+        paper-item {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
 
-      paper-listbox{
-        border: 1px solid #ccc;
-        padding: 8px;
-      }
-
-      paper-item{
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        width: 200px;
-      }
-
+        paper-ripple {
+          color: purple;
+        }
     </style>
 
-  <template>
-<paper-dropdown-menu label= "state *">
-<paper-listbox class="dropdown-content">
-  <paper-item> Alabama </paper-item>
-  <paper-item> Alaska </paper-item>
-  <paper-item> Arizona </paper-item>
-  <paper-item> Arkansas </paper-item>
-  <paper-item> California </paper-item>
-  <paper-item> Colorado </paper-item>
-  <paper-item> Connecticut </paper-item>
-  <paper-item> Delaware </paper-item>
-  <paper-item> District of Columbia </paper-item>
-  <paper-item> Florida </paper-item>
-  <paper-item> Georgia </paper-item>
-  <paper-item> Hawaii </paper-item>
-  <paper-item> Idaho </paper-item>
-  <paper-item> Illinois </paper-item>
-  <paper-item> Indiana </paper-item>
-  <paper-item> Iowa </paper-item>
-  <paper-item> Kansas </paper-item>
-  <paper-item> Kentucky </paper-item>
-  <paper-item> Louisiana </paper-item>
-  <paper-item> Maine </paper-item>
-  <paper-item> Maryland </paper-item>
-  <paper-item> Massachusetts </paper-item>
-  <paper-item> Michigan </paper-item>
-  <paper-item> Minnesota </paper-item>
-  <paper-item>  Mississippi </paper-item>
-  <paper-item> Missouri </paper-item>
-  <paper-item> Montana </paper-item>
-  <paper-item> Nebraska </paper-item>
-  <paper-item> Nevada </paper-item>
-  <paper-item> New Hampshire </paper-item>
-  <paper-item> New Jersey </paper-item>
-  <paper-item> New Mexico </paper-item>
-  <paper-item> New York </paper-item>
-  <paper-item> North Carolina </paper-item>
-  <paper-item> North Dakota </paper-item>
-  <paper-item> Ohio </paper-item>
-  <paper-item> Oklahoma </paper-item>
-  <paper-item> Oregon </paper-item>
-  <paper-item> Pennsylvania </paper-item>
-  <paper-item> Rhode Island </paper-item>
-  <paper-item> South Carolina </paper-item>
-  <paper-item> South Dakota </paper-item>
-  <paper-item> Tennessee </paper-item>
-  <paper-item> Texas </paper-item>
-  <paper-item> Utah </paper-item>
-  <paper-item> Vermont </paper-item>
-  <paper-item> Virginia </paper-item>
-  <paper-item> Washington </paper-item>
-  <paper-item> West Virginia </paper-item>
-  <paper-item> Wisconsin </paper-item>
-  <paper-item> Wyoming </paper-item>
-</paper-dropdown-menu>
-</template>
+    <template>
+        <paper-dropdown-menu label="[[label]]" autocomplete required auto-validate="[[autoValidate]]" invalid="{{invalid}}" error-message="[[errorMessage]]">
+            <paper-listbox class="dropdown-content" selected="{{userProfile.state}}" attr-for-selected="name">
+                <template is="dom-repeat" items="[[_states]]">
+                    <paper-item name="[[item.abbreviation]]">[[item.name]]</paper-item>
+                </template>
+            </paper-listbox>
+        </paper-dropdown-menu>
+    </template>
 </dom-module>
 
 <script>
     'use strict';
 
     Polymer({
-      is: 'nr-state-picker',
+        is: 'nr-state-picker',
+
+        properties: {
+            userProfile: {
+                type: Object,
+                notify: true,
+            },
+
+            _states: {
+                type: Array,
+                value: [{
+                    abbreviation: 'AL',
+                    name: 'Alabama'
+                }, {
+                    abbreviation: 'AK',
+                    name: 'Alaska'
+                }, {
+                    abbreviation: 'AZ',
+                    name: 'Arizona'
+                }, {
+                    abbreviation: 'AR',
+                    name: 'Arkansas'
+                }, {
+                    abbreviation: 'CA',
+                    name: 'California'
+                }, {
+                    abbreviation: 'CO',
+                    name: 'Colorado'
+                }, {
+                    abbreviation: 'CT',
+                    name: 'Connecticut'
+                }, {
+                    abbreviation: 'DE',
+                    name: 'Delaware'
+                }, {
+                    abbreviation: 'DC',
+                    name: 'District of Columbia'
+                }, {
+                    abbreviation: 'FL',
+                    name: 'Florida'
+                }, {
+                    abbreviation: 'GA',
+                    name: 'Georgia'
+                }, {
+                    abbreviation: 'HI',
+                    name: 'Hawaii'
+                }, {
+                    abbreviation: 'ID',
+                    name: 'Idaho'
+                }, {
+                    abbreviation: 'IL',
+                    name: 'Illinois'
+                }, {
+                    abbreviation: 'IN',
+                    name: 'Indiana'
+                }, {
+                    abbreviation: 'IA',
+                    name: 'Iowa'
+                }, {
+                    abbreviation: 'KS',
+                    name: 'Kansas'
+                }, {
+                    abbreviation: 'KY',
+                    name: 'Kentucky'
+                }, {
+                    abbreviation: 'LA',
+                    name: 'Louisiana'
+                }, {
+                    abbreviation: 'ME',
+                    name: 'Maine'
+                }, {
+                    abbreviation: 'MD',
+                    name: 'Maryland'
+                }, {
+                    abbreviation: 'MA',
+                    name: 'Massachusetts'
+                }, {
+                    abbreviation: 'MI',
+                    name: 'Michigan'
+                }, {
+                    abbreviation: 'MN',
+                    name: 'Minnesota'
+                }, {
+                    abbreviation: 'MS',
+                    name: 'Mississippi'
+                }, {
+                    abbreviation: 'MO',
+                    name: 'Missouri'
+                }, {
+                    abbreviation: 'MT',
+                    name: 'Montana'
+                }, {
+                    abbreviation: 'NE',
+                    name: 'Nebraska'
+                }, {
+                    abbreviation: 'NV',
+                    name: 'Nevada'
+                }, {
+                    abbreviation: 'NH',
+                    name: 'New Hampshire'
+                }, {
+                    abbreviation: 'NJ',
+                    name: 'New Jersey'
+                }, {
+                    abbreviation: 'NM',
+                    name: 'New Mexico'
+                }, {
+                    abbreviation: 'NY',
+                    name: 'New York'
+                }, {
+                    abbreviation: 'NC',
+                    name: 'North Carolina'
+                }, {
+                    abbreviation: 'ND',
+                    name: 'North Dakota'
+                }, {
+                    abbreviation: 'OH',
+                    name: 'Ohio'
+                }, {
+                    abbreviation: 'OK',
+                    name: 'Oklahoma'
+                }, {
+                    abbreviation: 'OR',
+                    name: 'Oregon'
+                }, {
+                    abbreviation: 'PA',
+                    name: 'Pennsylvania'
+                }, {
+                    abbreviation: 'RI',
+                    name: 'Rhode Island'
+                }, {
+                    abbreviation: 'SC',
+                    name: 'South Carolina'
+                }, {
+                    abbreviation: 'SD',
+                    name: 'South Dakota'
+                }, {
+                    abbreviation: 'TN',
+                    name: 'Tennessee'
+                }, {
+                    abbreviation: 'TX',
+                    name: 'Texas'
+                }, {
+                    abbreviation: 'UT',
+                    name: 'Utah'
+                }, {
+                    abbreviation: 'VT',
+                    name: 'Vermont'
+                }, {
+                    abbreviation: 'VA',
+                    name: 'Virginia'
+                }, {
+                    abbreviation: 'WA',
+                    name: 'Washington'
+                }, {
+                    abbreviation: 'WV',
+                    name: 'West Virginia'
+                }, {
+                    abbreviation: 'WI',
+                    name: 'Wisconsin'
+                }, {
+                    abbreviation: 'WY',
+                    name: 'Wyoming'
+                }, ],
+            },
+
+            // _stateIndex: {
+            //   type: Number,
+            //   value: -1
+            // },
+
+            _state: {
+                type: String,
+                value: 'AL',
+            }
+        },
+
+        // TODO: use a biztek developed state custom elementn
+        // observer below is a workaround for the bug in the dropdown where the error is not getting cleared even after the user selects an item from the drop down
+        observers: [
+            '_stateChanged(userProfile.state)'
+        ],
+        _stateChanged: function(state) {
+            if (state) {
+                this.async(function() {
+                    this.$.state.validate();
+                }, 1000); // TODO: need a better way instead of waiting for arbitrary 1000 msecs to validate
+            }
+        },
+
+        _validate: function() {
+            this.set('userProfile.state', false);
+
+            if (!this._autoValidate) {
+                this._autoValidate = true;
+                this.$.state.validate();
+            }
+
+            return !this._stateInvalid;
+        },
     });
-  </script>
+</script>
