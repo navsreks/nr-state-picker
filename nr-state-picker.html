@@ -35,12 +35,12 @@
         }
 
         paper-ripple {
-          color: purple;
+            color: purple;
         }
     </style>
 
     <template>
-      <paper-dropdown-menu label="[[label]]" id ="state" autocomplete required auto-validate="[[autoValidate]]" invalid="{{_stateInvalid}}" error-message="please select state">
+        <paper-dropdown-menu label="[[label]]" id="state" autocomplete required auto-validate="[[autoValidate]]" invalid="{{_stateInvalid}}" error-message="please select state">
             <paper-listbox class="dropdown-content" selected="{{userProfile.state}}" attr-for-selected="name">
                 <template is="dom-repeat" items="[[_states]]">
                     <paper-item name="[[item.abbreviation]]">[[item.name]]</paper-item>
@@ -249,7 +249,6 @@
 
             if (!this._autoValidate) {
                 this._autoValidate = true;
-                this.$.state.validate();
             }
 
             return !this._stateInvalid;
