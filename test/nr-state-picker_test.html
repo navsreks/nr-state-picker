@@ -14,6 +14,11 @@
     <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
     <link rel="import" href="../../test-fixture/test-fixture.html">
     <link rel="import" href="../nr-state-picker.html">
+    <link rel="import" href="../../paper-listbox/paper-listbox.html">
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+    <link rel="import" href="../paper-dropdown-menu.html">
+
 </head>
 
 <body>
@@ -26,9 +31,9 @@
 
     <script>
         suite('nr-state-picker', function() {
-            var dropdownMenu;
-            dropdownMenu = fixture('basic');
-            content = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+            var statesList;
+            statesList = fixture('basic');
+            content = Polymer.dom(statesList).querySelector('.dropdown-content');
 
             test('instantiating the element works', function() {
                 let element = fixture('basic');
@@ -38,61 +43,6 @@
             test('dropdown should have 51 rows', function() {
                 let content = fixture('basic')
                 expect(content._states.length).to.be.equal(51);
-            });
-
-            function runAfterOpen(menu, callback) {
-                menu.$.menuButton.$.dropdown.addEventListener('iron-overlay-opened', function() {
-                    Polymer.Base.async(callback, 1);
-                });
-                MockInteractions.tap(menu);
-            }
-
-            test('the input area shows the correct selection', function() {
-                Polymer.dom.flush();
-                var item = Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[name];
-                expect(dropdownMenu.selectedItem).to.be.equal(item);
-            });
-        });
-        suite('validation', function() {
-            test('a non required dropdown is valid regardless of its selection', function() {
-                var dropdownMenu = fixture('basic');
-                menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
-
-                // no selection.
-                expect(dropdownMenu.autoValidate()).to.be.true;
-                expect(dropdownMenu.invalid).to.be.false;
-                expect(dropdownMenu.value).to.not.be.ok;
-
-                // some selection.
-                menu.selected = name;
-                expect(dropdownMenu._validate()).to.be.true;
-                expect(dropdownMenu.invalid).to.be.false;
-                expect(dropdownMenu.value).to.be.equal([
-                    [item.name]
-                ]);
-            });
-
-            test('a required dropdown is invalid without a selection', function() {
-                var dropdownMenu = fixture('basic');
-                dropdownMenu.required = true;
-
-                // no selection.
-                expect(dropdownMenu.validate()).to.be.false;
-                expect(dropdownMenu.invalid).to.be.true;
-                expect(dropdownMenu.value).to.not.be.ok;
-            });
-
-            test('a required dropdown is valid with a selection', function() {
-                var dropdownMenu = fixture('basic');
-                Polymer.dom.flush();
-
-                dropdownMenu.required = true;
-
-                expect(dropdownMenu._validate()).to.be.true;
-                expect(dropdownMenu.invalid).to.be.false;
-                expect(dropdownMenu.value).to.be.equal([
-                    [item.name]
-                ]);
             });
         });
     </script>
