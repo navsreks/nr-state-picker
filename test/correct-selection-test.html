@@ -1,0 +1,59 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+    <title>nr-state-picker test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+
+    <link rel="import" href="../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+    <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="../bower_components/paper-item/paper-item.html">
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+    <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+</head>
+
+<body>
+
+    <test-fixture id="SelectingState">
+        <template>
+            <paper-dropdown-menu no-animations>
+                <paper-listbox class="dropdown-content" selected="0">
+                    <paper-item>Alabama</paper-item>
+                    <paper-item>Alaska</paper-item>
+                    <paper-item>Arizona</paper-item>
+                </paper-listbox>
+            </paper-dropdown-menu>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('when a value is selected', function() {
+            setup(function() {
+                picked = fixture('SelectingState');
+            });
+
+            test('selecting second state should show Alaska', function() {
+                Polymer.dom.flush();
+                var selection = Polymer.dom(picked).querySelectorAll('paper-item')[0];
+                expect(picked.selectedItem).to.be.equal(selection);
+            });
+        });
+    </script>
+</body>
+
+</html>
