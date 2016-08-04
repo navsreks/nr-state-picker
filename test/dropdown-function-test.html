@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+    <title>nr-state-picker test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+
+    <link rel="import" href="../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+    <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="../bower_components/paper-item/paper-item.html">
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+    <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+</head>
+
+<body>
+
+    <test-fixture id="SelectingState">
+        <template>
+            <paper-dropdown-menu no-animations>
+                <paper-listbox class="dropdown-content" selected="1">
+                    <paper-item>Alabama</paper-item>
+                    <paper-item>Alaska</paper-item>
+                    <paper-item>Arizona</paper-item>
+                </paper-listbox>
+            </paper-dropdown-menu>
+        </template>
+    </test-fixture>
+
+    <script>
+        function runAfterOpen(menu, callback) {
+            menu.$.menuButton.$.dropdown.addEventListener('iron-overlay-opened', function() {
+                Polymer.Base.async(callback, 1);
+            });
+            MockInteractions.tap(menu);
+        }
+
+        suite('SelectingState', function() {
+            var picked;
+
+            setup(function() {
+                picked = fixture('SelectingState');
+                content = Polymer.dom(picked).querySelector('.dropdown-content');
+            });
+
+            test('opens when tapped', function(done) {
+                var contentRect = content.getBoundingClientRect();
+
+                expect(contentRect.width).to.be.equal(0);
+                expect(contentRect.height).to.be.equal(0);
+
+                runAfterOpen(picked, function() {
+                    contentRect = content.getBoundingClientRect();
+
+                    expect(picked.opened).to.be.equal(true);
+
+                    expect(contentRect.width).to.be.greaterThan(0);
+                    expect(contentRect.height).to.be.greaterThan(0);
+                    done();
+                });
+
+                expect(picked.opened).to.be.equal(true);
+            });
+
+        });
+    </script>
+</body>
+
+</html>
