@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>nr-state-picker test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+    <link rel="import" href="../../iron-overlay-behavior/iron-overlay-behavior.html">
+    <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+    <link rel="import" href="../nr-state-picker.html">
+    <link rel="import" href="../../paper-listbox/paper-listbox.html">
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+    <link rel="import" href="../bower_components/paper-dropdown-menu//paper-dropdown-menu.html">
+
+</head>
+
+<body>
+
+    <test-fixture id="basic">
+        <template>
+            <nr-state-picker></nr-state-picker>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('nr-state-picker', function() {
+            var statesList;
+            statesList = fixture('basic');
+            content = Polymer.dom(statesList).querySelector('.dropdown-content');
+
+            test('instantiating the element works', function() {
+                assert.equal(statesList.is, 'nr-state-picker');
+            });
+
+            test('dropdown should have 51 rows', function() {
+                expect(statesList._states.length).to.be.equal(51);
+            });
+
+            test('can be clicked', function(done) {
+                statesList.addEventListener('click', function() {
+                    done();
+                });
+                MockInteractions.tap(statesList);
+            });
+
+            function runAfterOpen(statesList, callback) {
+                menu.$.menuButton.$.dropdown.addEventListener('iron-overlay-opened', function() {
+                    Polymer.Base.async(callback, 1);
+                });
+                MockInteractions.tap(statesList);
+            }
+            setup(function() {
+                statesList = fixture('basic');
+                content = Polymer.dom(statesList).querySelector('.dropdown-content');
+            });
+
+            test('opens when tapped', function(done) {
+                expect(typeof content).to.be.equal('object');
+                var contentRect = statesList.getBoundingClientRect(content);
+
+                expect(contentRect.width).to.be.equal(900);
+                expect(contentRect.height).to.be.equal(22);
+
+                test(statesList, function() {
+                    var contentRect = statesList.getBoundingClientRect(content);
+
+                    expect(statesList.opened).to.be.equal(true);
+
+                    expect(contentRect.width).to.be.greaterThan(900);
+                    expect(contentRect.height).to.be.greaterThan(22);
+                    done();
+                });
+                done();
+            });
+        });
+    </script>
+</body>
+
+</html>
